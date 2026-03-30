@@ -1,13 +1,15 @@
-#!/usr/bin/env ruby
+# frozen_string_literal: true
 
-for num in 1..20 do
-    if num % 3 == 0 && num % 5 == 0
-        puts "FizzBuzz"
-    elsif num % 3 == 0
-        puts "Fizz"
-    elsif num % 5 == 0
-        puts "Buzz"
-    else
-        puts num
-    end
+# !/usr/bin/env ruby
+
+1.upto(20) do |num|
+  if (num % 3).zero? && (num % 5).zero?
+    puts 'FizzBuzz'
+  elsif (num % 3).zero?
+    puts 'Fizz'
+  elsif (num % 5).zero?
+    puts 'Buzz'
+  else
+    puts num
+  end
 end
