@@ -1,6 +1,5 @@
+#!/usr/bin/env ruby
 # frozen_string_literal: true
-
-# !/usr/bin/env ruby
 
 1.upto(20) do |num|
   if (num % 3).zero? && (num % 5).zero?
