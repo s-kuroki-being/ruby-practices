@@ -14,14 +14,18 @@ end
 
 def display_files(files)
   rows = files.size.ceildiv(COLUMNS)
-  width = files.map { |f| f.encode("EUC-JP").bytesize }.max + 2
+  
+  max_length = 0
+  files.each do |file|
+    max_length = file.size if file.size > max_length
+  end
+  width = max_length + 2
   nested_files = files.each_slice(rows).to_a
   nested_files.map { |column| column.fill(nil, column.size...rows) }
   nested_files.transpose.each do |row|
     row.each do |file|
       next if file.nil?
-      padding_size = width - file.encode("EUC-JP").bytesize
-      print file + (" " * padding_size) if file
+      print file.ljust(width) if file
     end
     puts
   end
