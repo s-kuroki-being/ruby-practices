@@ -13,15 +13,13 @@ def fetch_files
 end
 
 def display_files(files)
+  return if files.empty?
+
   rows = files.size.ceildiv(COLUMNS)
-  
-  max_length = 0
-  files.each do |file|
-    max_length = file.size if file.size > max_length
-  end
-  width = max_length + 2
+
+  width = files.map(&:size).max + 2
   nested_files = files.each_slice(rows).to_a
-  nested_files.map { |column| column.fill(nil, column.size...rows) }
+  nested_files.each { |column| column.fill(nil, column.size...rows) }
   nested_files.transpose.each do |row|
     row.each do |file|
       next if file.nil?
