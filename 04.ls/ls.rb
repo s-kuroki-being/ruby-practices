@@ -23,7 +23,7 @@ def display_files(files)
   nested_files.transpose.each do |row|
     row.each do |file|
       next if file.nil?
-      print file.ljust(width) if file
+      print file.ljust(width)
     end
     puts
   end
