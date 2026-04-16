@@ -1,15 +1,26 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'optparse'
+
 COLUMNS = 3
 
 def main
-  files = fetch_files
+  options = {}
+  opt = OptionParser.new
+  opt.on('-a') { |v| options[:a] = v }
+  opt.parse!(ARGV)
+
+  files = fetch_files(all: options[:a])
   display_files(files)
 end
 
-def fetch_files
-  Dir.glob('*')
+def fetch_files(all: false)
+  if all
+    Dir.glob('*', File::FNM_DOTMATCH).sort
+  else
+    Dir.glob('*').sort
+  end
 end
 
 def display_files(files)
