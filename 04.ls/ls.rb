@@ -1,15 +1,23 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'optparse'
+
 COLUMNS = 3
 
 def main
-  files = fetch_files
+  options = {}
+  opt = OptionParser.new
+  opt.on('-a') { |v| options[:a] = v }
+  opt.parse!(ARGV)
+
+  files = fetch_files(all: options[:a])
   display_files(files)
 end
 
-def fetch_files
-  Dir.glob('*')
+def fetch_files(all: false)
+  flags = all ? File::FNM_DOTMATCH : 0
+  Dir.glob('*', flags).sort
 end
 
 def display_files(files)
@@ -23,6 +31,7 @@ def display_files(files)
   nested_files.transpose.each do |row|
     row.each do |file|
       next if file.nil?
+
       print file.ljust(width)
     end
     puts
