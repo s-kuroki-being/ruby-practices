@@ -16,11 +16,8 @@ def main
 end
 
 def fetch_files(all: false)
-  if all
-    Dir.glob('*', File::FNM_DOTMATCH).sort
-  else
-    Dir.glob('*').sort
-  end
+  flags = all ? File::FNM_DOTMATCH : 0
+  Dir.glob('*', flags).sort
 end
 
 def display_files(files)
@@ -34,6 +31,7 @@ def display_files(files)
   nested_files.transpose.each do |row|
     row.each do |file|
       next if file.nil?
+
       print file.ljust(width)
     end
     puts
